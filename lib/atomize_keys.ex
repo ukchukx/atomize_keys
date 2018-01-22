@@ -17,9 +17,9 @@ defmodule AtomizeKeys do
   end
   def atomize_string_keys(not_a_map), do: not_a_map
 
-  def atomize_keys(nil), do: nil
-  def atomize_keys(struct = %{__struct__: _}), do: struct # Structs don't do enumerable and the keys are already atoms
-  def atomize_keys(map = %{}) do
+  defp atomize_keys(nil), do: nil
+  defp atomize_keys(struct = %{__struct__: _}), do: struct # Structs don't do enumerable and the keys are already atoms
+  defp atomize_keys(map = %{}) do
     map
     |> Enum.map(fn
       {k, v} when is_binary(k) -> {String.to_atom(k), atomize_keys(v)}
@@ -27,6 +27,6 @@ defmodule AtomizeKeys do
     end)
     |> Enum.into(%{})
   end
-  def atomize_keys([head | rest]), do: [atomize_keys(head) | atomize_keys(rest)]
-  def atomize_keys(not_a_map), do: not_a_map
+  defp atomize_keys([head | rest]), do: [atomize_keys(head) | atomize_keys(rest)]
+  defp atomize_keys(not_a_map), do: not_a_map
 end
