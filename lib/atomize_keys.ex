@@ -12,9 +12,10 @@ defmodule AtomizeKeys do
       %{a: 1, b: 2}
 
   """
-  def atomize_string_keys(map) when is_map(map) do
-    atomize_keys(map)
-  end
+  def atomize_string_keys(map) when is_map(map), do: atomize_keys(map)
+
+  def atomize_string_keys(term) when is_list(term), do: Enum.map(term, &atomize_keys/1)
+
   def atomize_string_keys(not_a_map), do: not_a_map
 
   defp atomize_keys(nil), do: nil
