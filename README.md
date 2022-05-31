@@ -7,7 +7,7 @@
 ```elixir
 def deps do
   [
-    {:atomize_keys, "~> 1.1.0"}
+    {:atomize_keys, "~> 1.2.0"}
   ]
 end
 ```

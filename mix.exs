@@ -4,19 +4,20 @@ defmodule AtomizeKeys.Mixfile do
   def project do
     [
       app: :atomize_keys,
-      version: "1.1.0",
+      version: "1.2.0",
       elixir: "~> 1.5",
       build_permanent: Mix.env == :prod,
       start_permanent: Mix.env == :prod,
       description: description(),
       package: package(),
-      deps: deps()
+      deps: deps(),
+      aliases: aliases()
     ]
   end
 
   defp description do
     """
-    A tool to convert string map keys to atoms.
+    A tool to convert string map keys to atoms or atom map keys to strings.
     """
   end
 
@@ -39,7 +40,13 @@ defmodule AtomizeKeys.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 0.5", only: [:dev], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: :dev}
+      {:ex_doc, "~> 0.19", only: :dev}
+    ]
+  end
+
+  defp aliases do
+    [
+      compile: ["compile --docs"]
     ]
   end
 end

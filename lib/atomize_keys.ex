@@ -57,7 +57,7 @@ defmodule AtomizeKeys do
   defp atomize_keys(%{} = map) do
     map
     |> Enum.map(fn
-      {k, v} when is_binary(k) -> {String.to_atom(k), atomize_keys(v)}
+      {k, v} when is_binary(k) -> {to_atom(k), atomize_keys(v)}
       {k, v} -> {k, atomize_keys(v)}
     end)
     |> Enum.into(%{})
@@ -65,4 +65,12 @@ defmodule AtomizeKeys do
 
   defp atomize_keys([head | rest]), do: [atomize_keys(head) | atomize_keys(rest)]
   defp atomize_keys(not_a_map), do: not_a_map
+
+  defp to_atom(string) do
+    try do
+      String.to_existing_atom(string)
+    rescue
+      ArgumentError -> String.to_atom(string)
+    end
+  end
 end
